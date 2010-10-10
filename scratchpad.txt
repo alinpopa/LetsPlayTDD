@@ -8,3 +8,5 @@ Make sure nextYear() is setting all variables properly -- need to carry forward 
 Calculate endingCapitalGains()
 
 Consider what to do about withdrawing more than the starting balance -- assert that this is impossible?
+Fix SavingsAccountYearTest.newAccount abstraction -- use it or don't!
+We're passing capitalGainsTaxRate everywhere -- put it in constructor?
