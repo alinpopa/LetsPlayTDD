@@ -71,16 +71,26 @@ public class SavingsAccountYearTest {
 		year.withdraw(1000);
 		assertThat("capital gains withdrawn", year.capitalGainsWithdrawn(), is(1000));
 		assertThat("capital gains tax", year.capitalGainsTaxIncurred(25), is(333));
-		//assertThat("total withdrawn",year.totalWithdrawnIncludingCapitalGains(25),is(1333));
+		assertThat("total withdrawn",year.totalWithdrawn(25),is(1333));
 		assertThat("interest earned",year.interestEarned(25),is(866));
 	}
 	
 	@Test
-	@Ignore
 	public void endingCapitalGainsIncludesInterestEarned(){
 		SavingsAccountYear year = new SavingsAccountYear(10000, 3000, 10);
-		assertThat(year.startingCapitalGains(),is(7000));
-		assertThat(year.endingCapitalGains(),is(4000));
+		assertThat("starting capital gains",year.startingCapitalGains(),is(7000));
+		assertThat("ending capital gains",year.endingCapitalGains(25),is(8000));
+	}
+	
+	@Test
+	public void endingCapitalGainsIncludesCapitalGainsWithdrawn(){
+		SavingsAccountYear year = new SavingsAccountYear(10000, 0, 10);
+		assertThat("starting capital gains", year.startingCapitalGains(), is(10000));
+		year.withdraw(1000);
+		assertThat("capital gains withdrawn", year.capitalGainsWithdrawn(), is(1000));
+		assertThat("capital gains tax",year.capitalGainsTaxIncurred(25),is(333));
+		assertThat("interest earned", year.interestEarned(25), is(866));
+		assertThat("ending capital gains", year.endingCapitalGains(25), is(9533));
 	}
 	
 	@Test
@@ -93,7 +103,7 @@ public class SavingsAccountYearTest {
 		SavingsAccountYear year = newAccount();
 		year.withdraw(1000);
 		year.withdraw(2000);
-		assertThat(year.totalWithdrawnExceptCapitalGainsTax(),is(3000));
+		assertThat(year.totalWithdrawn(25),is(3000));
 	}
 	
 	@Test
