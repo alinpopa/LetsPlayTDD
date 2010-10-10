@@ -4,19 +4,12 @@ public class SavingsAccountYear {
 
 	private int startingBalance;
 	private int interestRate;
-	private int capitalGainsAmount;
 	private int totalWithdrawn;
 	private int startingPrincipal;
-
-	public SavingsAccountYear(int startingBalance, int interestRate) {
-		this.startingBalance = startingBalance;
-		this.interestRate = interestRate;
-	}
 
 	public SavingsAccountYear(int startingBalance, int startingPrincipal, int interestRate) {
 		this.startingBalance = startingBalance;
 		this.startingPrincipal = startingPrincipal;
-		this.capitalGainsAmount = startingBalance - startingPrincipal;
 		this.interestRate = interestRate;
 	}
 
@@ -25,9 +18,13 @@ public class SavingsAccountYear {
 	}
 
 	public int startingPrincipal() {
-		return startingBalance - capitalGainsAmount;
+		return startingPrincipal;
 	}
 
+	public int startingCapitalGains() {
+		return startingBalance - startingPrincipal;
+	}
+	
 	public int interestRate() {
 		return interestRate;
 	}
@@ -41,13 +38,17 @@ public class SavingsAccountYear {
 		return Math.max(0, result);
 	}
 
+	public int endingCapitalGains() {
+		throw new UnsupportedOperationException();
+	}
+	
 	public int endingBalance(int capitalGainsTaxRate) {
 		int modifiedStart = startingBalance - totalWithdrawn() - capitalGainsTaxIncurred(capitalGainsTaxRate);
 		return modifiedStart + (modifiedStart * interestRate / 100);
 	}
 
 	public SavingsAccountYear nextYear(int capitalGainsTaxRate) {
-		return new SavingsAccountYear(this.endingBalance(capitalGainsTaxRate), interestRate);
+		return new SavingsAccountYear(this.endingBalance(capitalGainsTaxRate), 0, interestRate);
 	}
 
 	public void withdraw(int amount) {

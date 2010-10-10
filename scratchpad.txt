@@ -1,6 +1,10 @@
 Capital gains
 
 Get rid of SavingsAccountYear initializers
-Clean up SavingsAccountYearTest
+Clean up
 
-1000 / (1 - .10) - 1000 = 111
+Fix primitive obsession
+Make sure nextYear() is setting all variables properly -- need to carry forward capital gains, for example
+Calculate endingCapitalGains()
+
+Consider what to do about withdrawing more than the starting balance -- assert that this is impossible?
