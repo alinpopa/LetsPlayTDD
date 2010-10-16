@@ -10,6 +10,7 @@ public class StockMarketYearTest {
 	private static final int INTEREST_RATE = 10;
 	private static final int STARTING_PRINCIPAL = 3000;
 	private static final int STARTING_BALANCE = 10000;
+	private static final int CAPITAL_GAINS_TAX_RATE = 25;
 
 	@Test
 	public void startingValues() {
@@ -17,25 +18,26 @@ public class StockMarketYearTest {
 		assertThat("starting balance", year.startingBalance(), is(STARTING_BALANCE));
 		assertThat("starting principal", year.startingPrincipal(), is(STARTING_PRINCIPAL));
 		assertThat("interest rate", year.interestRate(), is(INTEREST_RATE));
-		assertThat("total withdrawn default", year.totalWithdrawn(25), is(0));
+		assertThat("capital gains tax rate",year.capitalGainsTaxRate(), is(CAPITAL_GAINS_TAX_RATE));
+		assertThat("total withdrawn default", year.totalWithdrawn(), is(0));
 	}
 
 	@Test
 	public void capitalGainsTax(){
 		StockMarketYear year = newYear();
 		year.withdraw(4000);
-		assertThat("capital gains tax includes tax on withdrawls to cover",year.capitalGainsTaxIncurred(25),is(333));
-		assertThat("total withdrawn includes capital gains tax", year.totalWithdrawn(25), is(4333));
+		assertThat("capital gains tax includes tax on withdrawls to cover",year.capitalGainsTaxIncurred(),is(333));
+		assertThat("total withdrawn includes capital gains tax", year.totalWithdrawn(), is(4333));
 	}
 	
 	@Test
 	public void interestEarned(){
 		StockMarketYear year = newYear();
-		assertThat("basic interest earned", year.interestEarned(25), is(1000));
+		assertThat("basic interest earned", year.interestEarned(), is(1000));
 		year.withdraw(2000);
-		assertThat("withdrawal don't earn interest", year.interestEarned(25), is(800));
+		assertThat("withdrawal don't earn interest", year.interestEarned(), is(800));
 		year.withdraw(2000);
-		assertThat("capital gains tax withdrawals don't earn interest",year.interestEarned(25),is(566));
+		assertThat("capital gains tax withdrawals don't earn interest",year.interestEarned(),is(566));
 	}
 
 	@Test
@@ -52,23 +54,24 @@ public class StockMarketYearTest {
 	@Test
 	public void endingBalance() {
 		StockMarketYear year = newYear();
-		assertThat("ending balance includes interest", year.endingBalance(25), is(11000));
+		assertThat("ending balance includes interest", year.endingBalance(), is(11000));
 		year.withdraw(1000);
-		assertThat("ending balance includes withdrawls",year.endingBalance(25),is(9900));
+		assertThat("ending balance includes withdrawls",year.endingBalance(),is(9900));
 		year.withdraw(3000);
-		assertThat("ending balance includes capital gains tax withdrawals",year.endingBalance(25),is(6233));
+		assertThat("ending balance includes capital gains tax withdrawals",year.endingBalance(),is(6233));
 	}
 	
 	@Test
 	public void nextYearStartingValuesMatchesThisYearEndingValues() {
 		StockMarketYear thisYear = newYear();
-		StockMarketYear nextYear = thisYear.nextYear(25);
-		assertThat("starting balance", nextYear.startingBalance(), is(thisYear.endingBalance(25)));
+		StockMarketYear nextYear = thisYear.nextYear();
+		assertThat("starting balance", nextYear.startingBalance(), is(thisYear.endingBalance()));
 		assertThat("starting principal", nextYear.startingPrincipal(), is(thisYear.endingPrincipal()));
 		assertThat("interest", nextYear.interestRate(), is(thisYear.interestRate()));
+		assertThat("capital gains tax rate",nextYear.capitalGainsTaxRate(),is(thisYear.capitalGainsTaxRate()));
 	}
 
 	private StockMarketYear newYear() {
-		return new StockMarketYear(STARTING_BALANCE, STARTING_PRINCIPAL, INTEREST_RATE);
+		return new StockMarketYear(STARTING_BALANCE, STARTING_PRINCIPAL, INTEREST_RATE, CAPITAL_GAINS_TAX_RATE);
 	}
 }
