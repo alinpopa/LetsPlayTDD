@@ -1,3 +1,5 @@
 Fix primitive obsession
 
 Consider what to do about withdrawing more than the starting balance -- assert that this is impossible?
+
+Assert on TaxRate -- need to enforce legal values
