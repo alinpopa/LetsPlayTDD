@@ -1,4 +1,4 @@
-Implementation of the code from James's http://jamesshore.com/Blog/Lets-Play/
+Implementation of the code from James's [http://jamesshore.com/Blog/Lets-Play/]
 
 **Requirements:**
 
