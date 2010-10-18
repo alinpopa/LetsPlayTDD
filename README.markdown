@@ -1,9 +1,9 @@
 Implementation of the code from James's http://jamesshore.com/Blog/Lets-Play/
 
-Requirements:
+__Requirements:__
 jdk >= 1.6
 maven >= 2.2.x
 
-Run:
-mvn clean package
+__Run:__
+    mvn clean package
 
