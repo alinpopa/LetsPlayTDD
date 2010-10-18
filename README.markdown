@@ -6,5 +6,5 @@ jdk >= 1.6
 maven >= 2.2.x  
 
 **Run:**
-`mvn clean package`
+    mvn clean package
 
