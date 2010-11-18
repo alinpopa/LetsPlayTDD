@@ -3,12 +3,12 @@ package com.test.lptdd;
 public class StockMarketYear {
 
 	private int startingBalance;
-	private int interestRate;
+	private InterestRate interestRate;
 	private int totalWithdrawals;
 	private int startingPrincipal;
-	private int capitalGainsTaxRate;
+	private TaxRate capitalGainsTaxRate;
 
-	public StockMarketYear(int startingBalance, int startingPrincipal, int interestRate, int capitalGainsTaxRate) {
+	public StockMarketYear(int startingBalance, int startingPrincipal, final InterestRate interestRate, final TaxRate capitalGainsTaxRate) {
 		this.startingBalance = startingBalance;
 		this.startingPrincipal = startingPrincipal;
 		this.interestRate = interestRate;
@@ -24,11 +24,11 @@ public class StockMarketYear {
 		return startingPrincipal;
 	}
 
-	public int interestRate() {
+	public InterestRate interestRate() {
 		return interestRate;
 	}
 
-	public int capitalGainsTaxRate() {
+	public TaxRate capitalGainsTaxRate() {
 		return capitalGainsTaxRate;
 	}
 	
@@ -42,9 +42,7 @@ public class StockMarketYear {
 	}
 
 	public int capitalGainsTaxIncurred() {
-		double doubleTaxRate = capitalGainsTaxRate / 100.0;
-		double doubleCapitalGains = capitalGainsWithdrawn();
-		return (int)((doubleCapitalGains / (1 - doubleTaxRate)) - doubleCapitalGains);
+		return capitalGainsTaxRate.compoundTaxFor(capitalGainsWithdrawn());
 	}
 	
 	public int totalWithdrawn() {
@@ -52,12 +50,11 @@ public class StockMarketYear {
 	}
 
 	public int interestEarned() {
-		return (startingBalance() - totalWithdrawn()) * interestRate() / 100;
+		return interestRate.interestOn(startingBalance - totalWithdrawn());
 	}
 	
 	public int endingBalance() {
-		int modifiedStart = startingBalance - totalWithdrawn();
-		return modifiedStart + interestEarned();
+		return startingBalance - totalWithdrawn() + interestEarned();
 	}
 	
 	public int endingPrincipal() {

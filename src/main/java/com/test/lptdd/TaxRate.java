@@ -8,10 +8,6 @@ public class TaxRate {
 		this.rate = rateAsPercentage / 100.0;
 	}
 
-	public int rate() {
-		return (int) (rate * 100); // TODO: delete me
-	}
-
 	public int simpleTaxFor(final int amount) {
 		return (int) (rate * amount);
 	}
