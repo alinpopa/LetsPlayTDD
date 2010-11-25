@@ -1,6 +1,5 @@
 package com.test.lptdd;
 
-import static com.test.lptdd.ValueObjectsStaticFactory.dollars;
 
 public class Dollars {
 
@@ -8,6 +7,10 @@ public class Dollars {
 
 	public Dollars(final int amount) {
 		this.amount = amount;
+	}
+
+	public static Dollars dollars(final int amount){
+		return new Dollars(amount);
 	}
 	
 	public int amount() {

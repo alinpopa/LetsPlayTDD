@@ -3,7 +3,7 @@ package com.test.lptdd;
 import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
-import static com.test.lptdd.ValueObjectsStaticFactory.dollars;
+import static com.test.lptdd.Dollars.dollars;
 
 import org.junit.Test;
 
