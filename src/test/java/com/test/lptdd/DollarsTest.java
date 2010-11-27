@@ -64,4 +64,14 @@ public class DollarsTest {
 	public void noNegativeResultWhenSubtractToZeroButReturnZeroInstead() throws Exception {
 		assertThat(dollars(40).subtractToZero(dollars(100)), is(dollars(0)));
 	}
+	
+	@Test
+	public void toInt() throws Exception {
+		assertThat(dollars(20).toInt(), is(20));
+	}
+	
+	@Test
+	public void multiply() throws Exception {
+		assertThat(dollars(20).multiply(dollars(5)), is(dollars(100)));
+	}
 }

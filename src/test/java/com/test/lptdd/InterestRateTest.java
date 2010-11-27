@@ -2,6 +2,7 @@ package com.test.lptdd;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
+import static com.test.lptdd.Dollars.dollars;
 
 import org.junit.Test;
 
@@ -9,13 +10,13 @@ public class InterestRateTest {
 	@Test
 	public void noRateShouldApplyWhenInterestIsZero() throws Exception {
 		InterestRate rate = new InterestRate(0);
-		assertThat(rate.interestOn(1000), is(0));
+		assertThat(rate.interestOn(dollars(1000)), is(dollars(0)));
 	}
 	
 	@Test
 	public void interest() throws Exception {
 		InterestRate rate = new InterestRate(10);
-		assertThat(rate.interestOn(1000), is(100));
+		assertThat(rate.interestOn(dollars(1000)), is(dollars(100)));
 	}
 	
 	@Test

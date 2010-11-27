@@ -1,5 +1,7 @@
 package com.test.lptdd;
 
+import static com.test.lptdd.Dollars.dollars;
+
 public class InterestRate {
 
 	private final double rate;
@@ -8,8 +10,8 @@ public class InterestRate {
 		this.rate = rateAsPercentage / 100.0;
 	}
 
-	public int interestOn(final int amount) {
-		return (int) (amount * rate);
+	public Dollars interestOn(final Dollars amount) {
+		return dollars((int) (amount.toInt() * rate));
 	}
 
 	@Override

@@ -27,29 +27,29 @@ public class StockMarketYearTest {
 	public void capitalGainsTax(){
 		StockMarketYear year = newYear();
 		year.withdraw(dollars(4000));
-		assertThat("capital gains tax includes tax on withdrawls to cover",year.capitalGainsTaxIncurred(),is(333));
+		assertThat("capital gains tax includes tax on withdrawls to cover",year.capitalGainsTaxIncurred(),is(dollars(333)));
 		assertThat("total withdrawn includes capital gains tax", year.totalWithdrawn(), is(dollars(4333)));
 	}
 	
 	@Test
 	public void interestEarned(){
 		StockMarketYear year = newYear();
-		assertThat("basic interest earned", year.interestEarned(), is(1000));
+		assertThat("basic interest earned", year.interestEarned(), is(dollars(1000)));
 		year.withdraw(dollars(2000));
-		assertThat("withdrawal don't earn interest", year.interestEarned(), is(800));
+		assertThat("withdrawal don't earn interest", year.interestEarned(), is(dollars(800)));
 		year.withdraw(dollars(2000));
-		assertThat("capital gains tax withdrawals don't earn interest",year.interestEarned(),is(566));
+		assertThat("capital gains tax withdrawals don't earn interest",year.interestEarned(),is(dollars(566)));
 	}
 
 	@Test
 	public void endingPrincipal(){
 		StockMarketYear year = newYear();
 		year.withdraw(dollars(1000));
-		assertThat("ending principal considers withdrawls", year.endingPrincipal(), is(2000));
+		assertThat("ending principal considers withdrawls", year.endingPrincipal(), is(dollars(2000)));
 		year.withdraw(dollars(500));
-		assertThat("ending principal considers total multiple withdrawls", year.endingPrincipal(), is(1500));
+		assertThat("ending principal considers total multiple withdrawls", year.endingPrincipal(), is(dollars(1500)));
 		year.withdraw(dollars(3000));
-		assertThat("ending principal never goes below zero", year.endingPrincipal(), is(0));
+		assertThat("ending principal never goes below zero", year.endingPrincipal(), is(dollars(0)));
 	}
 	
 	@Test
@@ -67,7 +67,7 @@ public class StockMarketYearTest {
 		StockMarketYear thisYear = newYear();
 		StockMarketYear nextYear = thisYear.nextYear();
 		assertThat("starting balance", nextYear.startingBalance(), is(thisYear.endingBalance()));
-		assertThat("starting principal", nextYear.startingPrincipal().amount(), is(thisYear.endingPrincipal()));
+		assertThat("starting principal", nextYear.startingPrincipal(), is(thisYear.endingPrincipal()));
 		assertThat("interest", nextYear.interestRate(), is(thisYear.interestRate()));
 		assertThat("capital gains tax rate",nextYear.capitalGainsTaxRate(),is(thisYear.capitalGainsTaxRate()));
 	}

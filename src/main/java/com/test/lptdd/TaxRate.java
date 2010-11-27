@@ -1,5 +1,7 @@
 package com.test.lptdd;
 
+import static com.test.lptdd.Dollars.dollars;
+
 public class TaxRate {
 
 	private final double rate;
@@ -8,12 +10,13 @@ public class TaxRate {
 		this.rate = rateAsPercentage / 100.0;
 	}
 
-	public int simpleTaxFor(final int amount) {
-		return (int) (rate * amount);
+	public Dollars simpleTaxFor(final Dollars amount) {
+		return dollars((int) (rate * amount.toInt()));
 	}
 
-	public int compoundTaxFor(final int amount) {
-		return (int) ((amount / (1 - rate)) - amount);
+	public Dollars compoundTaxFor(final Dollars amount) {
+		int amountAsInt = amount.toInt();
+		return dollars((int) ((amountAsInt / (1 - rate)) - amountAsInt));
 	}
 
 	@Override

@@ -13,8 +13,8 @@ public class Dollars {
 		return new Dollars(amount);
 	}
 	
-	public int amount() {
-		return amount; // TODO: delete me
+	public int toInt() {
+		return amount;
 	}
 	
 	public Dollars add(final Dollars dollars) {
@@ -28,6 +28,10 @@ public class Dollars {
 	public Dollars subtractToZero(final Dollars dollars) {
 		int result = amount - dollars.amount;
 		return dollars(Math.max(0, result));
+	}
+
+	public Dollars multiply(final Dollars with) {
+		return dollars(this.amount * with.amount);
 	}
 	
 	@Override
