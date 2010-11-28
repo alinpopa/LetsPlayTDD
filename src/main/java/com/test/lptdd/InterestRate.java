@@ -19,8 +19,7 @@ public class InterestRate {
 
     @Override
     public String toString() {
-        final BigDecimal oneHundred = new BigDecimal(100);
-        return rate.multiply(oneHundred) + "%";
+        return rate.multiply(new BigDecimal(100)) + "%";
     }
 
     @Override
